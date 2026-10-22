@@ -61,7 +61,7 @@
     "error": "Aamdani load nahi ho saki."
   },
   "Admin": {
-    "adminNotAuthorized": "Admin panel dekhne ki ijazat nahi hai.",
+    "adminNotAuthorized": "Not authorized to view admin panel.",
     "title": "Admin",
     "tabs": {
       "verifications": "Pending Verifications",
@@ -70,61 +70,60 @@
       "sos": "SOS Log"
     },
     "loading": "Loading...",
-    "error": "Koi masla hua hai",
-    "emptyVerifications": "Koi pending verifications nahi hain",
-    "emptyBookings": "Koi bookings nahi hain",
-    "emptyTransactions": "Koi transactions nahi hain",
-    "emptySos": "Koi SOS logs nahi hain",
-    "approve": "Manzoor Karein",
-    "reject": "Rad Karein",
-    "colWhen": "Kab",
-    "colType": "Qism",
+    "error": "An error occurred",
+    "emptyVerifications": "No pending verifications",
+    "emptyBookings": "No bookings",
+    "emptyTransactions": "No transactions",
+    "emptySos": "No SOS logs",
+    "approve": "Approve",
+    "reject": "Reject",
+    "colWhen": "When",
+    "colType": "Type",
     "colStatus": "Status",
     "colUser": "User"
   },
   "SOS": {
     "title": "SOS",
     "subtitle": "Yeh qareebi instructors aur admins ko realtime mein muttala karega.",
-    "send": "EMERGENCY: SOS Bhejein",
+    "send": "EMERGENCY: Send SOS",
     "sending": "Sending...",
-    "sent": "EMERGENCY SOS BHEJ DI GAYA",
-    "error": "SOS bhejne mein nakaami",
+    "sent": "EMERGENCY SOS SENT",
+    "error": "Failed to send SOS",
     "note": "SOS trigger hua app se",
-    "sentAlert": "SOS bhej diya gaya",
-    "failedAlert": "SOS bhejne mein nakaami",
-    "recent": "Haaliya SOS waqiat",
-    "empty": "Abhi tak koi SOS waqiat nahi hain.",
+    "sentAlert": "SOS sent",
+    "failedAlert": "Failed to send SOS",
+    "recent": "Recent SOS events",
+    "empty": "No SOS events yet.",
     "errors": {
-      "notSignedIn": "SOS bhejne ke liye sign in hona zaruri hai"
+      "notSignedIn": "Aapko SOS bhejne ke liye sign in hona zaruri hai"
     }
   },
   "Verification": {
-    "title": "Tasdeeq",
-    "subtitle": "Apne shanakhti documents review ke liye upload karein.",
+    "title": "Verification",
+    "subtitle": "Apne identity documents upload karein review ke liye.",
     "fields": {
-      "docType": "Document ki qism",
-      "upload": "Document upload karein"
+      "docType": "Document type",
+      "upload": "Upload document"
     },
     "docTypes": {
       "cnic": "CNIC / National ID",
       "drivingLicense": "Driving License (instructors)"
     },
-    "submit": "Tasdeeq ke liye submit karein",
-    "submitSuccess": "Tasdeeq submit ho gayi hai aur review ke intezar mein hai.",
+    "submit": "Submit for verification",
+    "submitSuccess": "Verification submitted and is pending review.",
     "errors": {
-      "notSignedIn": "Sign in hona zaruri hai",
-      "noFile": "Barah-e-karam zaruri files select karein."
+      "notSignedIn": "Aapko sign in hona zaruri hai"
     },
     "currentStatus": {
-      "title": "Aapki tasdeeqat",
-      "empty": "Aapne koi tasdeeq submit nahi ki."
+      "title": "Your verifications",
+      "empty": "Aapne koi verification submit nahi ki"
     },
     "status": {
-      "verified": "Tasdeeq Shuda",
-      "needsReview": "Review ki zarurat hai",
-      "rejected": "Rad Shuda",
+      "verified": "Verified",
+      "needsReview": "Needs Review",
+      "rejected": "Rejected",
       "pending": "Pending"
     },
-    "colWhen": "Kab"
+    "colWhen": "When"
   }
 }

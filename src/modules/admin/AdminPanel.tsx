@@ -1,11 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { useLocale } from 'next-intl';
+
 import { useTranslations } from 'next-intl';
 
 export default function AdminPanel() {
   const supabase = getSupabaseBrowserClient();
   const t = useTranslations('Admin');
+  const locale = useLocale();
   const [tab, setTab] = useState<'verifications' | 'bookings' | 'wallet' | 'sos'>('verifications');
   const [verifs, setVerifs] = useState<any[]>([]);
   const [sosLogs, setSosLogs] = useState<any[]>([]);
@@ -69,8 +72,8 @@ export default function AdminPanel() {
         <button className={`px-3 py-1 ${tab === 'sos' ? 'bg-slate-700 text-white' : ''}`} onClick={() => setTab('sos')}>{t('tabs.sos')}</button>
       </div>
 
-      {loading && <div className="mt-4 text-sm text-neutral-500">{t('loading')}</div>}
-      {error && <div className="mt-4 text-sm text-red-600">{t('error')}: {error}</div>}
+      {loading && <div className="mt-4 text-sm text-neutral-500">Loading…</div>}
+      {error && <div className="mt-4 text-sm text-red-600">Error: {error}</div>}
 
       {tab === 'verifications' && (
         <div className="mt-4">
@@ -116,11 +119,11 @@ export default function AdminPanel() {
           {transactions.length === 0 ? (
             <div className="text-neutral-400">{t('emptyTransactions')}</div>
           ) : (
-            transactions.map((trow) => (
-              <div key={trow.id} className="border p-3 rounded mb-2">
-                <div className="text-sm text-neutral-400">{trow.kind} — {new Date(trow.created_at).toLocaleString()}</div>
-                <div className="font-medium">{trow.amount} PKR</div>
-                <div className="text-sm">Wallet: {trow.wallet?.id ?? '—'} Owner: {trow.wallet?.user_id ?? '—'}</div>
+            transactions.map((t) => (
+              <div key={t.id} className="border p-3 rounded mb-2">
+                <div className="text-sm text-neutral-400">{t.kind} — {new Date(t.created_at).toLocaleString()}</div>
+                <div className="font-medium">{t.amount} PKR</div>
+                <div className="text-sm">Wallet: {t.wallet?.id ?? '—'} Owner: {t.wallet?.user_id ?? '—'}</div>
               </div>
             ))
           )}

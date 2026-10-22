@@ -21,8 +21,7 @@
     "postcss": "^8.4.47",
     "autoprefixer": "^10.4.20",
     "@google/generative-ai": "^0.21.0",
-    "zustand": "^4.4.0",
-    "@supabase/auth-helpers-nextjs": "^0.4.9"
+    "zustand": "^4.4.0"
   },
   "devDependencies": {
     "typescript": "^5.5.0",

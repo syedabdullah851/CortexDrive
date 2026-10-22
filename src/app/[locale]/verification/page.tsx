@@ -5,13 +5,12 @@ import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import { useTranslations } from 'next-intl';
 
 function StatusBadge({ status }: { status: string }) {
-  const t = useTranslations('Verification');
   if (!status) return null;
   const map: Record<string, { label: string; cls: string }> = {
-    verified: { label: t('status.verified'), cls: 'bg-emerald-100 text-emerald-800' },
-    needs_review: { label: t('status.needsReview'), cls: 'bg-amber-100 text-amber-800' },
-    rejected: { label: t('status.rejected'), cls: 'bg-red-100 text-red-800' },
-    pending: { label: t('status.pending'), cls: 'bg-neutral-100 text-neutral-800' },
+    verified: { label: 'Verified', cls: 'bg-emerald-100 text-emerald-800' },
+    needs_review: { label: 'Needs Review', cls: 'bg-amber-100 text-amber-800' },
+    rejected: { label: 'Rejected', cls: 'bg-red-100 text-red-800' },
+    pending: { label: 'Pending', cls: 'bg-neutral-100 text-neutral-800' },
   };
   const p = map[status] ?? { label: status, cls: 'bg-neutral-100 text-neutral-800' };
   return <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${p.cls}`}>{p.label}</span>;
@@ -31,20 +30,18 @@ export default function VerificationPage() {
   const supabase = getSupabaseBrowserClient();
 
   useEffect(() => {
-    let mounted = true;
     async function load() {
       setRows(null);
       try {
         const { data: { user } } = await supabase.auth.getUser();
-        if (!user) { if (mounted) setRows([]); return; }
+        if (!user) { setRowsError(tc('error')); return; }
         const { data, error } = await supabase.from('verifications').select('id,type,status,created_at').eq('user_id', user.id).order('created_at', { ascending: false });
         if (error) throw error;
-        if (mounted) setRows(data || []);
-      } catch (e: any) { if (mounted) setRowsError(e.message || String(e)); }
+        setRows(data || []);
+      } catch (e: any) { setRowsError(e.message || String(e)); }
     }
     load();
-    return () => { mounted = false; };
-  }, [supabase]);
+  }, [supabase, tc]);
 
   async function uploadToStorage(file: File, userId: string, namePrefix: string) {
     const ts = Date.now();
@@ -61,8 +58,8 @@ export default function VerificationPage() {
     setLoading(true);
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error(t('errors.notSignedIn'));
-      if (!cnic || (docType === 'driving_license' && !license)) throw new Error(t('errors.noFile'));
+      if (!user) throw new Error(tc('errors.notSignedIn'));
+      if (!cnic || (docType === 'driving_license' && !license)) throw new Error('Please select required files');
 
       // Upload files to private storage under verifications/{user.id}/...
       const cnicPath = await uploadToStorage(cnic!, user.id, 'cnic');
@@ -97,7 +94,6 @@ export default function VerificationPage() {
   return (
     <div className="p-8 max-w-3xl mx-auto">
       <h1 className="text-2xl font-semibold mb-4">{t('title')}</h1>
-      <p className="text-neutral-400 mb-4">{t('subtitle')}</p>
 
       <div className="space-y-4">
         <div>
@@ -144,8 +140,8 @@ export default function VerificationPage() {
               {rows.map(r => (
                 <li key={r.id} className="p-3 border rounded flex justify-between items-center">
                   <div>
-                    <div className="text-sm text-neutral-400">{new Date(r.created_at).toLocaleString()}</div>
-                    <div className="font-medium">{r.type}</div>
+                    <div className="text-sm text-neutral-400">{t('colWhen') ?? new Date(r.created_at).toLocaleString()}</div>
+                    <div className="font-medium">{t(`status.${r.status}`) ?? r.status}</div>
                   </div>
                   <StatusBadge status={r.status} />
                 </li>
